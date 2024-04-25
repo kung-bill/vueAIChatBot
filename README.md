@@ -20,7 +20,7 @@
       }
     },
     "AllowedHosts": "*",
-    "Urls": "https://localhost:7139",
+    "Urls": "https://localhost:7152",
     "endpoint": "<your_endpoint>",
     "key": "<your_apiKey>"
   }

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "SFtDMNEb7dQuE7sBkk308GRH5pSzBlJsIY3hULfH3yQpIi9S0+5xQx5QpyJ4yDEpyzbelVpaPpGwxBj6TpGWdw==",
+  "dgSpecHash": "W1T7qtY9gh8fYM2P6/nOfSjfM5c+GkLNuwhSIVUdtdpRE5flAbM9+85kwPEMbW56tptMnfmdFXtvm69Ug9DYEg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\user\\Desktop\\VueChatBot\\chatbot_backend_api\\chatbot_backend_api\\chatbot_backend_api.csproj",
+  "projectFilePath": "C:\\Users\\user\\Desktop\\vueAIChatBot\\chatbot_backend_api\\chatbot_backend_api\\chatbot_backend_api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\user\\.nuget\\packages\\azure.ai.openai\\1.0.0-beta.16\\azure.ai.openai.1.0.0-beta.16.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
