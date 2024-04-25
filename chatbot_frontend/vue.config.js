@@ -6,9 +6,9 @@ module.exports = defineConfig({
       '/api': {
         target: 'https://localhost:7152',
         changeOrigin: true,
-        pathRewrite: { 
-          '^/api': "https://localhost:7152/api/OpenAIchat" 
-      }
+        pathRewrite: {
+          '^/api': "https://localhost:7152/api/OpenAIchat"
+        }
       }
     }
   }
