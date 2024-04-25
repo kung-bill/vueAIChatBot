@@ -4,10 +4,10 @@ module.exports = defineConfig({
   devServer: {
     proxy: {
       '/api': {
-        target: 'https://localhost:7139',
+        target: 'https://localhost:7152',
         changeOrigin: true,
-        pathRewrite: { // pathRewrite 的作用是把实际Request Url中的'/api'用""代替
-          '^/api': "https://localhost:7139/api/chat" 
+        pathRewrite: { 
+          '^/api': "https://localhost:7152/api/OpenAIchat" 
       }
       }
     }

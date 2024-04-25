@@ -76,7 +76,7 @@ export default {
         }
       }
       await axios
-        .post('https://localhost:7152/api/chat', submitted_messages
+        .post('https://localhost:7152/api/OpenAIchat', submitted_messages
         )
         .then((response) => {
           this.messages.push({

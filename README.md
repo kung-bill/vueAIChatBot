@@ -9,7 +9,9 @@
 * Prerequisite
   * IDE: Visual Studio 
 
-* add your api key and endpoint in `\VueChatBot\chatbot_backend_api\chatbot_backend_api\appsettings.json`
+* Add your openAI or Azure openAI  api key and endpoint in `\vueAIChatBot\chatbot_backend_api\chatbot_backend_api\appsettings.json`.
+
+  Please note that an API key of either AOAI or OpenAI will be ok, but in AOAI your also need the endpoint.
 
   ```json
   {
@@ -19,11 +21,14 @@
         "Microsoft.AspNetCore": "Warning"
       }
     },
-    "AllowedHosts": "*",
     "Urls": "https://localhost:7152",
-    "endpoint": "<your_endpoint>",
-    "key": "<your_apiKey>"
+    "AllowedHosts": "*",
+    "azure_openai_endpoint": "<your_aoai_endpoint>",
+    "azure_openai_key": "<your_aoai_apikey>",
+    "openai_key": "<your_openai_apikey>"
+  
   }
+  
   ```
 
 * Open `chatbot_backend_api.sln` with Visual Studio, and click `F5 ` to execute the .Net core Web API project. It will pop up a web browser like below:
@@ -37,7 +42,7 @@
   * IDE: Visual Studio Code
   * Javascript run time: Node
 
-* In folder `\VueChatBot\chatbot_frontend\` install package.
+* In folder `\vueAIChatBot\chatbot_frontend\` install package.
 
   ```shell
   npm install

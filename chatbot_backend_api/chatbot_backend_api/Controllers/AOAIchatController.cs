@@ -5,28 +5,28 @@ using System.Text.Json;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace chatbot.Controllers
+namespace chatbot_backend_api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class chatController : ControllerBase
+    public class AOAIchatController : ControllerBase
     {
         private readonly IConfiguration Configuration;
 
-        public chatController(IConfiguration configuration)
+        public AOAIchatController(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
         // POST api/<chatController>
         [HttpPost]
-        public IActionResult Post([FromBody] List<JsonElement> user_prompt)
+        public IActionResult Post([FromBody] List<JsonElement> message_json)
         {
             //process to ChatRequestMessage
             List<ChatRequestMessage> messages = new List<ChatRequestMessage>();
-            for (int i = 0; i < user_prompt.Count; ++i) 
+            for (int i = 0; i < message_json.Count; ++i) 
             {
-                if (user_prompt[i].TryGetProperty("role", out var role) && user_prompt[i].TryGetProperty("content", out var content))
+                if (message_json[i].TryGetProperty("role", out var role) && message_json[i].TryGetProperty("content", out var content))
                 {
                     // Process role and content
                     if (role.ToString() == "system")
@@ -45,8 +45,8 @@ namespace chatbot.Controllers
             }
 
 
-            string endpoint = Configuration["endpoint"];
-            string key = Configuration["key"];
+            string endpoint = Configuration["azure_openai_endpoint"];
+            string key = Configuration["azure_openai_key"];
 
             OpenAIClient client = new(new Uri(endpoint), new AzureKeyCredential(key));
 
