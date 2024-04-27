@@ -4,11 +4,13 @@
       <h1>AI Chat Bot</h1>
       <div ref="messageBox" class="messageBox mt-8">
         <template v-for="(message, index) in messages" :key="index">
-          <div v-if="message.content.trim().length !== 0"
-            :class="message.role == 'user' ? 'messageFromUser' : 'messageFromChatGpt'">
-            <div :class="message.role == 'user' ? 'userMessageWrapper' : 'chatGptMessageWrapper'">
-              <div :class="message.role == 'user' ? 'userMessageContent' : 'chatGptMessageContent'">
-                {{ message.content }}
+          <div :class="message.role == 'user'? 'messageFromUser' : 'messageFromChatGpt'">
+            <div
+              :class="(message.role == 'user' ||  message.content.trim().length !== 0)? 'userMessageWrapper' : ['chatGptMessageWrapper', ]">
+              <div :class="message.role == 'user'  ? 'userMessageContent' : 'chatGptMessageContent'">
+                <div :class=" message.content.trim().length === 0 ? 'dot-flashing' : ''">
+                  {{ message.content }}
+                </div>
               </div>
             </div>
             <img v-if="message.role == 'assistant'" :src='require(`../assets/bot.png`)' width="40" height="40">
@@ -19,9 +21,7 @@
         <input v-model="currentMessage" type="text" class="messageInput" :disabled="processing"
           placeholder="Please enter your question" @keyup.enter="sendMessage(currentMessage)" />
         <button :disabled="processing" @click="sendMessage(currentMessage)" class="askButton">
-          <i v-if="!processing" class="pi pi-send" style="font-size: 1rem"></i>
-          <i v-if="processing" class="pi pi-spin pi-spinner" style="font-size: 1rem"></i>
-
+          <i class="pi pi-send" style="font-size: 1rem"></i>
         </button>
       </div>
     </div>
@@ -75,14 +75,16 @@ export default {
           submitted_messages[i + 1] = this.messages[i]
         }
       }
+
+      this.messages.push({
+        role: 'assistant',
+        content: '',
+      });
       await axios
         .post('https://localhost:7152/api/OpenAIchat', submitted_messages
         )
         .then((response) => {
-          this.messages.push({
-            role: 'assistant',
-            content: response.data, // Access the 'data' property of the response object
-          });
+          this.messages[this.messages.length - 1].content = response.data // Access the 'data' property of the response object
         }).catch(function (error) {
           console.log(error.toJSON());
         });
@@ -131,6 +133,64 @@ h1 {
   border-bottom: 1px solid #e7e7e7;
 }
 
+/**
+ * ==============================================
+ * Dot Flashing
+ * ==============================================
+ */
+.dot-flashing {
+  position: relative;
+  left: 10px;
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  background-color: #000000;
+  color: #000000;
+  animation: dot-flashing 1s infinite linear alternate;
+  animation-delay: 0.5s;
+}
+
+.dot-flashing::before,
+.dot-flashing::after {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  top: 0;
+}
+
+.dot-flashing::before {
+  left: -15px;
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  background-color: #000000;
+  color: #000000;
+  animation: dot-flashing 1s infinite alternate;
+  animation-delay: 0s;
+}
+
+.dot-flashing::after {
+  left: 15px;
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  background-color: #000000;
+  color: #000000;
+  animation: dot-flashing 1s infinite alternate;
+  animation-delay: 1s;
+}
+
+@keyframes dot-flashing {
+  0% {
+    background-color: #000000;
+  }
+
+  50%,
+  100% {
+    background-color: rgba(26, 26, 28, 0.2);
+  }
+}
+
 .messageBox {
   padding: 16px;
   flex-grow: 1;
@@ -144,7 +204,6 @@ h1 {
 .messageFromChatGpt {
   display: flex;
 }
-
 
 
 .messageBox {
@@ -165,6 +224,7 @@ h1 {
 .userMessageWrapper,
 .chatGptMessageWrapper {
   display: flex;
+  min-width: 60px;
   flex-direction: column;
 }
 

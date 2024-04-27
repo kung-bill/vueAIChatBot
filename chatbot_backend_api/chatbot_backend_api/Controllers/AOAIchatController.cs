@@ -54,8 +54,7 @@ namespace chatbot_backend_api.Controllers
             ChatCompletionsOptions chatCompletionsOptions = new ChatCompletionsOptions()
             {
                 DeploymentName = "gpt-35-turbo-16k", //This must match the custom deployment name you chose for your model
-                Messages = { new ChatRequestSystemMessage("You are a helpful assistant.") },
-                MaxTokens = 100,
+                MaxTokens = 200,
             };
 
 
