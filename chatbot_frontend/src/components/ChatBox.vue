@@ -6,7 +6,7 @@
         <template v-for="(message, index) in messages" :key="index">
           <div :class="message.role == 'user'? 'messageFromUser' : 'messageFromChatGpt'">
             <div
-              :class="(message.role == 'user' ||  message.content.trim().length !== 0)? 'userMessageWrapper' : ['chatGptMessageWrapper', ]">
+              :class="(message.role == 'user' ||  message.content.trim().length !== 0)? 'userMessageWrapper' : 'chatGptMessageWrapper'">
               <div :class="message.role == 'user'  ? 'userMessageContent' : 'chatGptMessageContent'">
                 <div :class=" message.content.trim().length === 0 ? 'dot-flashing' : ''">
                   {{ message.content }}
@@ -48,9 +48,6 @@ export default {
     };
   },
   methods: {
-    sleep(ms) {
-      return new Promise(resolve => setTimeout(resolve, ms));
-    },
     async sendMessage(currentMessage) {
       if (currentMessage.trim().length === 0) {
         return
